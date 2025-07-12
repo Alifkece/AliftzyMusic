@@ -9,8 +9,9 @@
       font-family: 'Courier New', monospace;
       background-color: black;
       color: white;
-      overflow-x: hidden;
       text-align: center;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
     .background-video {
@@ -20,6 +21,11 @@
       height: 100%;
       object-fit: cover;
       z-index: -2;
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
     }
 
     .profile-video {
@@ -41,20 +47,17 @@
     .player-box {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 16px;
+      gap: 20px;
       padding: 20px;
-      width: 90%;
-      max-width: 750px;
-      margin: 20px auto;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .track-card {
       background: rgba(255,255,255,0.07);
       border: 1px solid #555;
       border-radius: 10px;
-      padding: 14px;
+      padding: 16px;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       animation: fadeIn 0.5s ease forwards;
@@ -86,7 +89,7 @@
     }
 
     .toggle-button {
-      margin: 24px auto;
+      margin: 30px auto;
       padding: 12px 28px;
       background: transparent;
       color: #FFD700;
@@ -117,6 +120,31 @@
       font-size: 22px;
       opacity: 0.85;
     }
+
+    @media (max-width: 768px) {
+      .profile-video {
+        width: 200px;
+        height: 200px;
+        margin-top: 40px;
+      }
+
+      .main-title {
+        font-size: 28px;
+      }
+
+      .track-title {
+        font-size: 14px;
+      }
+
+      .toggle-button {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+
+      .player-box {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -133,44 +161,22 @@
     <div class="main-title">Aliftzy Music</div>
 
     <div class="player-box">
-      <div class="track-card" onclick="playTrack(1)">
-        <div class="track-title">Payphone</div>
-      </div>
-      <div class="track-card" onclick="playTrack(2)">
-        <div class="track-title">Back To Friends</div>
-      </div>
-      <div class="track-card" onclick="playTrack(3)">
-        <div class="track-title">About You</div>
-      </div>
-      <div class="track-card" onclick="playTrack(4)">
-        <div class="track-title">Where We Are</div>
-      </div>
-      <div class="track-card" onclick="playTrack(5)">
-        <div class="track-title">Night Changes</div>
-      </div>
-      <div class="track-card" onclick="playTrack(6)">
-        <div class="track-title">You’ll Be In My Heart</div>
-      </div>
-      <div class="track-card" onclick="playTrack(7)">
-        <div class="track-title">December</div>
-      </div>
-      <div class="track-card" onclick="playTrack(8)">
-        <div class="track-title">Angel Baby</div>
-      </div>
-      <div class="track-card" onclick="playTrack(9)">
-        <div class="track-title">Somebody Pleasure</div>
-      </div>
-      <div class="track-card" onclick="playTrack(10)">
-        <div class="track-title">Rewrite The Stars</div>
-      </div>
+      <div class="track-card" onclick="playTrack(1)"><div class="track-title">Payphone</div></div>
+      <div class="track-card" onclick="playTrack(2)"><div class="track-title">Back To Friends</div></div>
+      <div class="track-card" onclick="playTrack(3)"><div class="track-title">About You</div></div>
+      <div class="track-card" onclick="playTrack(4)"><div class="track-title">Where We Are</div></div>
+      <div class="track-card" onclick="playTrack(5)"><div class="track-title">Night Changes</div></div>
+      <div class="track-card" onclick="playTrack(6)"><div class="track-title">You’ll Be In My Heart</div></div>
+      <div class="track-card" onclick="playTrack(7)"><div class="track-title">December</div></div>
+      <div class="track-card" onclick="playTrack(8)"><div class="track-title">Angel Baby</div></div>
+      <div class="track-card" onclick="playTrack(9)"><div class="track-title">Somebody Pleasure</div></div>
+      <div class="track-card" onclick="playTrack(10)"><div class="track-title">Rewrite The Stars</div></div>
     </div>
 
     <button class="toggle-button" onclick="togglePlay()" id="toggleBtn">▶️ Play All</button>
   </div>
 
-  <div class="footer">
-    <h2>© AliftzyOffc</h2>
-  </div>
+  <div class="footer"><h2>© AliftzyOffc</h2></div>
 
   <!-- Audio Tracks -->
   <audio id="track1" src="https://files.catbox.moe/21mio9.mpeg"></audio>
@@ -186,7 +192,6 @@
 
   <script>
     let isPlaying = false;
-
     function playTrack(n) {
       for (let i = 1; i <= 10; i++) {
         document.getElementById('track' + i).pause();
