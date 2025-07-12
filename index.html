@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>Aliftzy Music</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Courier New', monospace;
@@ -11,7 +15,6 @@
       color: white;
       text-align: center;
       min-height: 100vh;
-      overflow-x: hidden;
     }
 
     .background-video {
@@ -25,83 +28,67 @@
 
     .container {
       width: 100%;
-      height: 100%;
+      padding-bottom: 80px;
     }
 
     .profile-video {
-      width: 280px;
-      height: 280px;
+      width: 320px;
+      height: 320px;
       border-radius: 50%;
       object-fit: cover;
       margin-top: 80px;
-      border: 4px solid #FFD700;
+      border: 5px solid #FFD700;
     }
 
     .main-title {
-      font-size: 36px;
+      font-size: 48px;
       color: #FFD700;
-      margin: 20px 0;
+      margin: 24px 0;
       font-weight: bold;
     }
 
     .player-box {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      padding: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 30px;
       width: 100%;
-      box-sizing: border-box;
     }
 
     .track-card {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid #555;
-      border-radius: 10px;
-      padding: 16px;
+      background: rgba(255,255,255,0.08);
+      border: 2px solid #FFD700;
+      border-radius: 16px;
+      padding: 20px;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: fadeIn 0.5s ease forwards;
-      opacity: 0;
       text-align: center;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      font-size: 20px;
+      color: #00BFFF;
+      font-weight: bold;
     }
 
     .track-card:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 12px rgba(255,255,255,0.4);
+      box-shadow: 0 0 14px rgba(255,255,255,0.3);
     }
 
-    .track-title {
-      font-size: 16px;
-      font-weight: bold;
-      color: #00BFFF;
-      margin-bottom: 4px;
+    .control-buttons {
+      margin-top: 20px;
     }
 
-    .active-track {
+    .control-buttons button {
+      font-size: 20px;
+      padding: 12px 30px;
+      background-color: transparent;
       border: 2px solid #FFD700;
-      box-shadow: 0 0 14px #FFD700;
-      transform: scale(1.04);
-    }
-
-    .toggle-button {
-      margin: 30px auto;
-      padding: 12px 28px;
-      background: transparent;
+      border-radius: 12px;
       color: #FFD700;
       font-weight: bold;
-      font-size: 18px;
-      border: 2px solid #FFD700;
-      border-radius: 10px;
       cursor: pointer;
-      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    .toggle-button:hover {
+    .control-buttons button:hover {
       background-color: #FFD700;
       color: black;
     }
@@ -111,38 +98,38 @@
       bottom: 0;
       width: 100%;
       text-align: center;
-      color: #FFD700;
       background: transparent;
+      color: #FFD700;
     }
 
     .footer h2 {
-      margin: 12px 0;
-      font-size: 22px;
-      opacity: 0.85;
+      margin: 16px 0;
+      font-size: 28px;
+      opacity: 0.9;
     }
 
     @media (max-width: 768px) {
       .profile-video {
-        width: 200px;
-        height: 200px;
+        width: 220px;
+        height: 220px;
         margin-top: 40px;
       }
 
       .main-title {
-        font-size: 28px;
+        font-size: 32px;
       }
 
-      .track-title {
-        font-size: 14px;
+      .track-card {
+        font-size: 18px;
       }
 
-      .toggle-button {
-        font-size: 16px;
-        padding: 10px 20px;
+      .control-buttons button {
+        font-size: 18px;
+        padding: 10px 24px;
       }
 
-      .player-box {
-        grid-template-columns: 1fr;
+      .footer h2 {
+        font-size: 20px;
       }
     }
   </style>
@@ -161,24 +148,28 @@
     <div class="main-title">Aliftzy Music</div>
 
     <div class="player-box">
-      <div class="track-card" onclick="playTrack(1)"><div class="track-title">Payphone</div></div>
-      <div class="track-card" onclick="playTrack(2)"><div class="track-title">Back To Friends</div></div>
-      <div class="track-card" onclick="playTrack(3)"><div class="track-title">About You</div></div>
-      <div class="track-card" onclick="playTrack(4)"><div class="track-title">Where We Are</div></div>
-      <div class="track-card" onclick="playTrack(5)"><div class="track-title">Night Changes</div></div>
-      <div class="track-card" onclick="playTrack(6)"><div class="track-title">You’ll Be In My Heart</div></div>
-      <div class="track-card" onclick="playTrack(7)"><div class="track-title">December</div></div>
-      <div class="track-card" onclick="playTrack(8)"><div class="track-title">Angel Baby</div></div>
-      <div class="track-card" onclick="playTrack(9)"><div class="track-title">Somebody Pleasure</div></div>
-      <div class="track-card" onclick="playTrack(10)"><div class="track-title">Rewrite The Stars</div></div>
+      <div class="track-card" onclick="playTrack(1)">Payphone</div>
+      <div class="track-card" onclick="playTrack(2)">Back To Friends</div>
+      <div class="track-card" onclick="playTrack(3)">About You</div>
+      <div class="track-card" onclick="playTrack(4)">Where We Are</div>
+      <div class="track-card" onclick="playTrack(5)">Night Changes</div>
+      <div class="track-card" onclick="playTrack(6)">You’ll Be In My Heart</div>
+      <div class="track-card" onclick="playTrack(7)">December</div>
+      <div class="track-card" onclick="playTrack(8)">Angel Baby</div>
+      <div class="track-card" onclick="playTrack(9)">Somebody Pleasure</div>
+      <div class="track-card" onclick="playTrack(10)">Rewrite The Stars</div>
     </div>
 
-    <button class="toggle-button" onclick="togglePlay()" id="toggleBtn">▶️ Play All</button>
+    <div class="control-buttons">
+      <button onclick="stopAll()">⏹️ Stop</button>
+    </div>
   </div>
 
-  <div class="footer"><h2>© AliftzyOffc</h2></div>
+  <div class="footer">
+    <h2>© AliftzyOffc</h2>
+  </div>
 
-  <!-- Audio Tracks -->
+  <!-- Audio Elements -->
   <audio id="track1" src="https://files.catbox.moe/21mio9.mpeg"></audio>
   <audio id="track2" src="https://files.catbox.moe/gld7ok.mpeg"></audio>
   <audio id="track3" src="https://files.catbox.moe/1n7ahe.mp3"></audio>
@@ -191,7 +182,6 @@
   <audio id="track10" src="https://files.catbox.moe/tq9nw9.mpeg"></audio>
 
   <script>
-    let isPlaying = false;
     function playTrack(n) {
       for (let i = 1; i <= 10; i++) {
         document.getElementById('track' + i).pause();
@@ -202,23 +192,11 @@
       document.querySelectorAll('.track-card')[n - 1].classList.add('active-track');
     }
 
-    function togglePlay() {
-      const button = document.getElementById('toggleBtn');
-      if (!isPlaying) {
-        for (let i = 1; i <= 10; i++) {
-          document.getElementById('track' + i).play();
-          document.querySelectorAll('.track-card')[i - 1].classList.add('active-track');
-        }
-        isPlaying = true;
-        button.innerText = '⏹️ Stop All';
-      } else {
-        for (let i = 1; i <= 10; i++) {
-          document.getElementById('track' + i).pause();
-          document.getElementById('track' + i).currentTime = 0;
-          document.querySelectorAll('.track-card')[i - 1].classList.remove('active-track');
-        }
-        isPlaying = false;
-        button.innerText = '▶️ Play All';
+    function stopAll() {
+      for (let i = 1; i <= 10; i++) {
+        document.getElementById('track' + i).pause();
+        document.getElementById('track' + i).currentTime = 0;
+        document.querySelectorAll('.track-card')[i - 1].classList.remove('active-track');
       }
     }
   </script>
