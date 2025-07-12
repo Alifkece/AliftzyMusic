@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Aliftzy Music</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      background: black;
+      color: white;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .background-video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .profile-video {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-top: 100px;
+      border: 3px solid #FFD700;
+    }
+
+    .typing-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .typing-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #FFD700;
+      white-space: nowrap;
+      border-right: 3px solid #FFD700;
+      overflow: hidden;
+      width: 0;
+      animation: typing 4s steps(30, end) forwards, blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 17ch }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    .player-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 16px;
+      padding: 16px;
+      width: 90%;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .track-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid #555;
+      border-radius: 10px;
+      padding: 6px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeIn 0.5s ease forwards;
+      opacity: 0;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .track-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 8px rgba(255,255,255,0.3);
+    }
+
+    .track-title {
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 4px;
+      color: #00BFFF;
+    }
+
+    .active-track {
+      border: 1px solid #FFD700;
+      box-shadow: 0 0 10px #FFD700;
+      transform: scale(1.03);
+    }
+
+    .control-buttons {
+      margin: 16px 0 8px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .control-buttons button {
+      background: transparent;
+      color: #FFD700;
+      font-weight: bold;
+      border: 1px solid #FFD700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .control-buttons button:hover {
+      background: #FFD700;
+      color: black;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      color: #FFD700;
+    }
+
+    .footer h2 {
+      margin: 0;
+      font-size: 18px;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+
+  <video class="background-video" autoplay muted loop>
+    <source src="https://files.catbox.moe/3pgux4.mp4" type="video/mp4">
+  </video>
+
+  <div class="container">
+    <video class="profile-video" autoplay muted loop>
+      <source src="https://files.catbox.moe/w0h5t2.mp4" type="video/mp4">
+    </video>
+
+    <div class="typing-container">
+      <div class="typing-title">Aliftzy Music</div>
+    </div>
+
+    <div class="player-box">
+      <div class="track-card" onclick="playTrack(1)">
+        <div class="track-title">Payphone</div>
+      </div>
+      <div class="track-card" onclick="playTrack(2)">
+        <div class="track-title">Back To Friends</div>
+      </div>
+      <div class="track-card" onclick="playTrack(3)">
+        <div class="track-title">About You</div>
+      </div>
+      <div class="track-card" onclick="playTrack(4)">
+        <div class="track-title">Where We are</div>
+      </div>
+      <div class="track-card" onclick="playTrack(5)">
+        <div class="track-title">Night Changes</div>
+      </div>
+      <div class="track-card" onclick="playTrack(6)">
+        <div class="track-title">You ll Be In My Heart</div>
+      </div>
+      <div class="track-card" onclick="playTrack(7)">
+        <div class="track-title">December</div>
+      </div>
+      <div class="track-card" onclick="playTrack(8)">
+        <div class="track-title">Angel Baby</div>
+      </div>
+      <div class="track-card" onclick="playTrack(9)">
+        <div class="track-title">Sombody Plesure</div>
+      </div>
+      <div class="track-card" onclick="playTrack(10)">
+        <div class="track-title">Rewrite The Stars</div>
+      </div>
+    </div>
+
+
+  <audio id="track1" src="https://files.catbox.moe/21mio9.mpeg"></audio>
+  <audio id="track2" src="https://files.catbox.moe/gld7ok.mpeg"></audio>
+  <audio id="track3" src="https://files.catbox.moe/1n7ahe.mp3"></audio>
+  <audio id="track4" src="https://files.catbox.moe/xgljq2.mpeg"></audio>
+  <audio id="track5" src="https://files.catbox.moe/1rajcf.mpeg"></audio>
+  <audio id="track6" src="https://files.catbox.moe/qhqjhw.mpeg"></audio>
+  <audio id="track7" src="https://files.catbox.moe/8l853n.mpeg"></audio>
+  <audio id="track8" src="https://files.catbox.moe/1twc82.mpeg"></audio>
+  <audio id="track9" src="https://files.catbox.moe/cz9jjq.mpeg"></audio>
+  <audio id="track10" src="https://files.catbox.moe/tq9nw9.mpeg"></audio>
+
+  <div class="footer">
+    <h6>© AliftzyOffc</h6>
+  </div>
+
+  <script>
+    function playTrack(n) {
+      for (let i = 1; i <= 10; i++) {
+        document.getElementById('track' + i).pause();
+        document.getElementById('track' + i).currentTime = 0;
+        document.querySelectorAll('.track-card')[i - 1].classList.remove('active-track');
+      }
+      document.getElementById('track' + n).play();
+      document.querySelectorAll('.track-card')[n - 1].classList.add('active-track');
+    }
+
+    function playAll() {
+      for (let i = 1; i <= 10; i++) {
+        document.getElementById('track' + i).play();
+        document.querySelectorAll('.track-card')[i - 1].classList.add('active-track');
+      }
+    }
+
+    function stopAll() {
+      for (let i = 1; i <= 10; i++) {
+        document.getElementById('track' + i).pause();
+        document.getElementById('track' + i).currentTime = 0;
+        document.querySelectorAll('.track-card')[i - 1].classList.remove('active-track');
+      }
+    }
+  </script>
+</body>
+</html>
