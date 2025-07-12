@@ -40,13 +40,13 @@
 
     .player-box {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
       background: rgba(0, 0, 0, 0.5);
       border-radius: 16px;
       padding: 20px;
       width: 90%;
-      max-width: 700px;
+      max-width: 750px;
       margin: 20px auto;
     }
 
@@ -54,7 +54,7 @@
       background: rgba(255,255,255,0.07);
       border: 1px solid #555;
       border-radius: 10px;
-      padding: 10px;
+      padding: 14px;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       animation: fadeIn 0.5s ease forwards;
@@ -69,11 +69,11 @@
 
     .track-card:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 10px rgba(255,255,255,0.3);
+      box-shadow: 0 0 12px rgba(255,255,255,0.4);
     }
 
     .track-title {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: bold;
       color: #00BFFF;
       margin-bottom: 4px;
@@ -81,29 +81,24 @@
 
     .active-track {
       border: 2px solid #FFD700;
-      box-shadow: 0 0 12px #FFD700;
+      box-shadow: 0 0 14px #FFD700;
       transform: scale(1.04);
     }
 
-    .control-buttons {
-      margin: 20px 0;
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-    }
-
-    .control-buttons button {
+    .toggle-button {
+      margin: 24px auto;
+      padding: 12px 28px;
       background: transparent;
       color: #FFD700;
       font-weight: bold;
+      font-size: 18px;
       border: 2px solid #FFD700;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 16px;
+      border-radius: 10px;
       cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    .control-buttons button:hover {
+    .toggle-button:hover {
       background-color: #FFD700;
       color: black;
     }
@@ -118,7 +113,7 @@
     }
 
     .footer h2 {
-      margin: 10px 0;
+      margin: 12px 0;
       font-size: 22px;
       opacity: 0.85;
     }
@@ -170,10 +165,7 @@
       </div>
     </div>
 
-    <div class="control-buttons">
-      <button onclick="playAll()">▶️ Play All</button>
-      <button onclick="stopAll()">⏹️ Stop All</button>
-    </div>
+    <button class="toggle-button" onclick="togglePlay()" id="toggleBtn">▶️ Play All</button>
   </div>
 
   <div class="footer">
@@ -193,6 +185,8 @@
   <audio id="track10" src="https://files.catbox.moe/tq9nw9.mpeg"></audio>
 
   <script>
+    let isPlaying = false;
+
     function playTrack(n) {
       for (let i = 1; i <= 10; i++) {
         document.getElementById('track' + i).pause();
@@ -203,18 +197,23 @@
       document.querySelectorAll('.track-card')[n - 1].classList.add('active-track');
     }
 
-    function playAll() {
-      for (let i = 1; i <= 10; i++) {
-        document.getElementById('track' + i).play();
-        document.querySelectorAll('.track-card')[i - 1].classList.add('active-track');
-      }
-    }
-
-    function stopAll() {
-      for (let i = 1; i <= 10; i++) {
-        document.getElementById('track' + i).pause();
-        document.getElementById('track' + i).currentTime = 0;
-        document.querySelectorAll('.track-card')[i - 1].classList.remove('active-track');
+    function togglePlay() {
+      const button = document.getElementById('toggleBtn');
+      if (!isPlaying) {
+        for (let i = 1; i <= 10; i++) {
+          document.getElementById('track' + i).play();
+          document.querySelectorAll('.track-card')[i - 1].classList.add('active-track');
+        }
+        isPlaying = true;
+        button.innerText = '⏹️ Stop All';
+      } else {
+        for (let i = 1; i <= 10; i++) {
+          document.getElementById('track' + i).pause();
+          document.getElementById('track' + i).currentTime = 0;
+          document.querySelectorAll('.track-card')[i - 1].classList.remove('active-track');
+        }
+        isPlaying = false;
+        button.innerText = '▶️ Play All';
       }
     }
   </script>
