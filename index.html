@@ -4,10 +4,7 @@
   <meta charset="UTF-8">
   <title>Aliftzy Music</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Courier New', monospace;
@@ -16,7 +13,6 @@
       text-align: center;
       min-height: 100vh;
     }
-
     .background-video {
       position: fixed;
       top: 0; left: 0;
@@ -25,28 +21,20 @@
       object-fit: cover;
       z-index: -2;
     }
-
-    .container {
-      width: 100%;
-      padding-bottom: 80px;
-    }
-
+    .container { width: 100%; padding-bottom: 120px; }
     .profile-video {
-      width: 320px;
-      height: 320px;
+      width: 320px; height: 320px;
       border-radius: 50%;
       object-fit: cover;
       margin-top: 80px;
       border: 5px solid #FFD700;
     }
-
     .main-title {
       font-size: 48px;
       color: #FFD700;
       margin: 24px 0;
       font-weight: bold;
     }
-
     .player-box {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -54,7 +42,6 @@
       padding: 30px;
       width: 100%;
     }
-
     .track-card {
       background: rgba(255,255,255,0.08);
       border: 2px solid #FFD700;
@@ -67,32 +54,47 @@
       color: #00BFFF;
       font-weight: bold;
     }
-
     .track-card:hover {
       transform: scale(1.05);
       box-shadow: 0 0 14px rgba(255,255,255,0.3);
     }
-
     .control-buttons {
-      margin-top: 20px;
+      margin-top: 30px;
     }
-
-    .control-buttons button {
+    .toggle-button {
       font-size: 20px;
-      padding: 12px 30px;
+      padding: 14px 36px;
       background-color: transparent;
       border: 2px solid #FFD700;
       border-radius: 12px;
       color: #FFD700;
       font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
     }
-
-    .control-buttons button:hover {
+    .toggle-button:hover {
       background-color: #FFD700;
       color: black;
     }
-
+    .typing-message {
+      width: 90%;
+      max-width: 900px;
+      margin: 40px auto;
+      font-size: 18px;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid white;
+      animation: typing 14s steps(150, end) forwards, blink 0.9s step-end infinite;
+      display: none;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
     .footer {
       position: fixed;
       bottom: 0;
@@ -101,36 +103,22 @@
       background: transparent;
       color: #FFD700;
     }
-
     .footer h2 {
       margin: 16px 0;
       font-size: 28px;
       opacity: 0.9;
     }
-
     @media (max-width: 768px) {
       .profile-video {
         width: 220px;
         height: 220px;
         margin-top: 40px;
       }
-
-      .main-title {
-        font-size: 32px;
-      }
-
-      .track-card {
-        font-size: 18px;
-      }
-
-      .control-buttons button {
-        font-size: 18px;
-        padding: 10px 24px;
-      }
-
-      .footer h2 {
-        font-size: 20px;
-      }
+      .main-title { font-size: 32px; }
+      .track-card { font-size: 18px; }
+      .toggle-button { font-size: 18px; padding: 12px 24px; }
+      .footer h2 { font-size: 20px; }
+      .typing-message { font-size: 16px; }
     }
   </style>
 </head>
@@ -161,13 +149,15 @@
     </div>
 
     <div class="control-buttons">
-      <button onclick="stopAll()">⏹️ Stop</button>
+      <button class="toggle-button" onclick="stopAll()" id="toggleBtn">⏹️ Stop</button>
+    </div>
+
+    <div class="typing-message" id="message">
+      Haloo Sayangggg👋🏻, Gimanaa sudaaa dengerin lagu nyaa? 🤔, asal kamuu tauuu🫣, di lagu itu semua menggambarkan😶‍🌫, betapa hampa dan perih nya aku kehilangan kamuu😓😓, di setiap lagu itu juga aku simpen nama kamu🥳🥳, biar akuu ingettt bagaimana bahagia nyaa kita di saat bersama hhe🤩🤩, Kamuuu jangann pergiii yaaa cantikkk🙁🙁, akuu sayanggg kamuu🫂🫂, I Love You araa🤍🤍
     </div>
   </div>
 
-  <div class="footer">
-    <h2>© AliftzyOffc</h2>
-  </div>
+  <div class="footer"><h2>© AliftzyOffc</h2></div>
 
   <!-- Audio Elements -->
   <audio id="track1" src="https://files.catbox.moe/21mio9.mpeg"></audio>
@@ -190,6 +180,11 @@
       }
       document.getElementById('track' + n).play();
       document.querySelectorAll('.track-card')[n - 1].classList.add('active-track');
+
+      const message = document.getElementById('message');
+      if (message.style.display === 'none') {
+        message.style.display = 'block';
+      }
     }
 
     function stopAll() {
